@@ -68,7 +68,6 @@
     <Compile Include="AspNetUserLogin.cs">
       <DependentUpon>FinalProject.tt</DependentUpon>
     </Compile>
-    <Compile Include="Class1.cs" />
     <Compile Include="C__MigrationHistory.cs">
       <DependentUpon>FinalProject.tt</DependentUpon>
     </Compile>
@@ -87,6 +86,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FinalProject.edmx</DependentUpon>
     </Compile>
+    <Compile Include="FinalProjectMetadata\FinalProjectMetadata.cs" />
     <Compile Include="Location.cs">
       <DependentUpon>FinalProject.tt</DependentUpon>
     </Compile>
