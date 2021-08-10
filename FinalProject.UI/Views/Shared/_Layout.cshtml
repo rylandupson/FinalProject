@@ -11,10 +11,10 @@
     -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600,700' rel='stylesheet' type='text/css'>
     @*<link href="~/Content/css/font-awesome.min.css" rel="stylesheet">
-    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
-    <link href="~/Content/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
-    <link href="~/Content/css/flexslider.css" rel="stylesheet">
-    <link href="~/Content/css/templatemo-style.css" rel="stylesheet">*@
+        <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+        <link href="~/Content/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+        <link href="~/Content/css/flexslider.css" rel="stylesheet">
+        <link href="~/Content/css/templatemo-style.css" rel="stylesheet">*@
 
     @Styles.Render("~/Content/css")
 
@@ -40,10 +40,31 @@
                     </div>
                     <nav class="tm-nav">
                         <ul>
-                            <li><a href="index.html" class="active">Home</a></li>
-                            <li><a href="about.html">About</a></li>
-                            <li><a href="tours.html">Our Tours</a></li>
-                            <li><a href="contact.html">Contact</a></li>
+                            <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+                            <li><a href="@Url.Action("About", "Home")">About</a></li>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li><a href="@Url.Action("Index", "Positions")">Positions</a></li>
+                                <li><a href="@Url.Action("Index", "OpenPositions")">Open Positions</a></li>
+                                <li><a href="@Url.Action("Index", "Applications")">Applications</a></li>
+                                <li><a href="@Url.Action("Index", "UserDetails")">User Details</a></li>
+                                <li><a href="@Url.Action("Index", "UsersAdmin")">Admin Users</a></li>
+                                <li><a href="@Url.Action("Index", "RolesAdmin")">Admin Roles</a></li>
+                            }
+                            @if (User.IsInRole("Manager"))
+                            {
+                                <li><a href="@Url.Action("Index", "Positions")">Positions</a></li>
+                                <li><a href="@Url.Action("Index", "OpenPositions")">Open Positions</a></li>
+                                <li><a href="@Url.Action("Index", "Applications")">Applications</a></li>
+                                <li><a href="@Url.Action("Index", "UserDetails")">User Details</a></li>
+                            }
+                            @if (User.IsInRole("Employee"))
+                            {
+                                <li><a href="@Url.Action("Index", "Positions")">Positions</a></li>
+                                <li><a href="@Url.Action("Index", "OpenPositions")">Open Positions</a></li>
+                            }
+                            <li><a href="@Url.Action("Contact", "Home")">Contact</a></li>
+                            <li>@Html.Partial("_LoginPartial")</li>
                         </ul>
                     </nav>
                 </div>
@@ -84,7 +105,9 @@
         </div>
     </section>
 
-    @RenderBody()
+    <div class="container">
+        @RenderBody()
+    </div>
 
     <footer class="tm-black-bg">
         <div class="container">
