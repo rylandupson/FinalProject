@@ -41,7 +41,8 @@
             @Html.DisplayFor(modelItem => item.ManagerNotes)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ResumeFileName)
+            @*@Html.DisplayFor(modelItem => item.ResumeFileName)*@
+            <a href="~/Content/resumes/@item.ResumeFileName" target="_blank">Click to View Document</a>
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ApplicationStatus.StatusName)

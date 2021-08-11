@@ -26,12 +26,8 @@
             @Html.DisplayFor(model => model.ManagerNotes)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ResumeFileName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ResumeFileName)
+        <dd class="col-md-6">
+            <a href="~/Content/resumes/@Model.ResumeFileName" target="_blank">Click to View Document</a>
         </dd>
 
         <dt>

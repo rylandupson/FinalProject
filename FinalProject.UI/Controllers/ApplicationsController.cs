@@ -39,7 +39,7 @@ namespace FinalProject.UI.Controllers
         }
 
         // GET: Applications/Create
-        [Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Manager, Employee")]
         public ActionResult Create()
         {
             ViewBag.ApplicationStatusID = new SelectList(db.ApplicationStatus1, "ApplicationStatusID", "StatusName");
@@ -53,10 +53,31 @@ namespace FinalProject.UI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ApplicationID,OpenPositionID,UserID,ApplicationDate,ManagerNotes,ApplicationStatusID,ResumeFileName")] Application application)
+        public ActionResult Create([Bind(Include = "ApplicationID,OpenPositionID,UserID,ApplicationDate,ManagerNotes,ApplicationStatusID,ResumeFileName")] Application application, HttpPostedFileBase resume)
         {
             if (ModelState.IsValid)
             {
+                #region File Upload
+                string resumeName = "noPDF.pdf";
+
+                if (resume != null)
+                {
+                    resumeName = resume.FileName;
+                    string ext = resumeName.Substring(resumeName.LastIndexOf('.'));
+                    string[] goodExts = { ".pdf" };
+
+                    if (goodExts.Contains(ext.ToLower()))
+                    {
+                        resume.SaveAs(Server.MapPath("~/Content/resumes/" + resumeName));
+                    }
+                    else
+                    {
+                        resumeName = "noPDF.pdf";
+                    }
+                }
+                application.ResumeFileName = resumeName;
+                #endregion
+
                 db.Applications.Add(application);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -92,10 +113,25 @@ namespace FinalProject.UI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ApplicationID,OpenPositionID,UserID,ApplicationDate,ManagerNotes,ApplicationStatusID,ResumeFileName")] Application application)
+        public ActionResult Edit([Bind(Include = "ApplicationID,OpenPositionID,UserID,ApplicationDate,ManagerNotes,ApplicationStatusID,ResumeFileName")] Application application, HttpPostedFileBase resume)
         {
             if (ModelState.IsValid)
             {
+                if (resume != null)
+                {
+                    string resumeName = resume.FileName;
+
+                    string ext = resumeName.Substring(resumeName.LastIndexOf('.'));
+
+                    string[] goodExts = { ".pdf" };
+
+                    if (goodExts.Contains(ext.ToLower()))
+                    {
+                        resume.SaveAs(Server.MapPath("~/Content/resumes/" + resumeName));
+
+                        application.ResumeFileName = resumeName;
+                    }
+                }
                 db.Entry(application).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
