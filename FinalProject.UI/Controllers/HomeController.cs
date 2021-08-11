@@ -1,4 +1,9 @@
-﻿using System.Web.Mvc;
+﻿using FinalProject.UI.Models;
+using System;
+using System.Configuration;
+using System.Net;
+using System.Net.Mail;
+using System.Web.Mvc;
 
 namespace FinalProject.UI.Controllers
 {
@@ -22,9 +27,45 @@ namespace FinalProject.UI.Controllers
         [HttpGet]
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
-
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Contact(ContactViewModel cvm)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(cvm);
+            }
+
+            string message = "Email: " + (cvm.Email) + "<br />Name: " + (cvm.Name) + "<br />Subject: " + (cvm.Subject) + "<br />" + (cvm.Message);
+
+            MailMessage mm = new MailMessage(ConfigurationManager.AppSettings["EmailUser"].ToString(), ConfigurationManager.AppSettings["EmailTo"].ToString(), cvm.Subject, message)
+            {
+                IsBodyHtml = true,
+
+                Priority = MailPriority.High
+            };
+
+            mm.ReplyToList.Add(cvm.Email);
+
+            SmtpClient client = new SmtpClient(ConfigurationManager.AppSettings["EmailClient"].ToString())
+            {
+                Credentials = new NetworkCredential(ConfigurationManager.AppSettings["EmailUser"].ToString(), ConfigurationManager.AppSettings["EmailPass"].ToString())
+            };
+
+            try
+            {
+                client.Send(mm);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.CustomerMessage = $"We're sorry your request could not be processed at this time. Please try again later. Error Message:</br> {ex.StackTrace}";
+                return View(cvm);
+            }
+
+            return View("EmailConfirmation", cvm);
         }
     }
 }
