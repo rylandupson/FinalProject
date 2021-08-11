@@ -1,4 +1,5 @@
-﻿using FinalProject.UI.Models;
+﻿using FinalProject.DATA.EF;
+using FinalProject.UI.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -153,6 +154,18 @@ namespace FinalProject.UI.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    #region Custom User Details
+                    UserDetail newUD = new UserDetail();
+                    newUD.UserID = user.Id;
+                    newUD.FirstName = model.FirstName;
+                    newUD.LastName = model.LastName;
+                    //newUD.ResumeFileName = model.ResumeFileName; //TODO: handle file upload
+
+                    FinalProjectEntities db = new FinalProjectEntities();
+                    db.UserDetails.Add(newUD);
+                    db.SaveChanges();
+                    #endregion
+
                     var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
