@@ -9,31 +9,44 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Location.StoreNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Position.Title)
-        </th>
-        <th></th>
-    </tr>
+<table class="table" id="myTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Location.StoreNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Position.Title)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Location.StoreNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Position.Title)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.OpenPositionID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.OpenPositionID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.OpenPositionID })
-        </td>
-    </tr>
-}
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location.StoreNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Position.Title)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.OpenPositionID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.OpenPositionID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.OpenPositionID })
+                </td>
+            </tr>
+        }
+    </tbody>
 
 </table>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+}

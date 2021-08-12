@@ -29,7 +29,8 @@ namespace FinalProject.UI
                       "~/Content/css/bootstrap.min.css",
                       "~/Content/css/bootstrap-datetimepicker.min.css",
                       "~/Content/css/flexslider.css",
-                      "~/Content/css/templatemo-style.css"));
+                      "~/Content/css/templatemo-style.css",
+                      "~/Content/DataTables/css/jquery.dataTables.min.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/js").Include(
                 "~/Scripts/jquery-1.11.2.min.js",
@@ -37,7 +38,8 @@ namespace FinalProject.UI
                 "~/Scripts/bootstrap.min.js",
                 "~/Scripts/bootstrap-datetimepicker.min.js",
                 "~/Scripts/jquery.flexslider-min.js",
-                "~/Scripts/templatemo-script.js"));
+                "~/Scripts/templatemo-script.js",
+                "~/Scripts/DataTables/jquery.dataTables.min.js"));
         }
     }
 }
