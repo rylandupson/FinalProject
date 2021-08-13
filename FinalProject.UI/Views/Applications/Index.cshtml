@@ -37,6 +37,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.UserDetail.FirstName)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserDetail.LastName)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -63,6 +66,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.UserDetail.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserDetail.LastName)
                 </td>
                 <td>
                     @if (User.IsInRole("Admin"))

@@ -11,7 +11,7 @@
             @(Model.HasPassword ? Html.ActionLink("Change your password", "ChangePassword") 
                 : Html.ActionLink("Pick a password", "SetPassword"))
         </p>
-        <p>
+        @*<p>
             Phone Number: @(Model.PhoneNumber ?? "None") [
             @if (Model.PhoneNumber != null)
             {
@@ -72,6 +72,6 @@
                     <input type="submit" value="Remember Browser" class="btn btn-default"/>
                 </p>
             }
-        }
+        }*@
     </div>
 </div>
