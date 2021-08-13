@@ -7,7 +7,14 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @if (User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Create New", "Create")
+    }
+    @if (User.IsInRole("Manager"))
+    {
+        @Html.ActionLink("Create New", "Create")
+    }
 </p>
 <table class="table" id="myTable">
     <thead>
@@ -58,9 +65,18 @@
                     @Html.DisplayFor(modelItem => item.UserDetail.FirstName)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.ApplicationID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.ApplicationID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ApplicationID })
+                    @if (User.IsInRole("Admin"))
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ApplicationID })
+                        @Html.ActionLink("Details", "Details", new { id = item.ApplicationID })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ApplicationID })
+                    }
+                    @if (User.IsInRole("Manager"))
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ApplicationID })
+                        @Html.ActionLink("Details", "Details", new { id = item.ApplicationID })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ApplicationID })
+                    }
                 </td>
             </tr>
         }

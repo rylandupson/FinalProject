@@ -15,7 +15,7 @@ namespace FinalProject.UI.Controllers
         private FinalProjectEntities db = new FinalProjectEntities();
 
         // GET: Applications
-        [Authorize(Roles = "Admin, Manager")]
+        [Authorize(Roles = "Admin, Manager, Employee")]
         public ActionResult Index()
         {
             var applications = db.Applications.Include(a => a.ApplicationStatus).Include(a => a.OpenPosition).Include(a => a.UserDetail);
@@ -39,7 +39,7 @@ namespace FinalProject.UI.Controllers
         }
 
         // GET: Applications/Create
-        [Authorize(Roles = "Manager, Employee")]
+        [Authorize(Roles = "Admin, Manager")]
         public ActionResult Create()
         {
             ViewBag.ApplicationStatusID = new SelectList(db.ApplicationStatus1, "ApplicationStatusID", "StatusName");
@@ -90,7 +90,7 @@ namespace FinalProject.UI.Controllers
         }
 
         // GET: Applications/Edit/5
-        [Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Admin, Manager")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -143,7 +143,7 @@ namespace FinalProject.UI.Controllers
         }
 
         // GET: Applications/Delete/5
-        [Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Admin, Manager")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

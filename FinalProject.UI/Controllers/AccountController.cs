@@ -152,6 +152,7 @@ namespace FinalProject.UI.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
+                UserManager.AddToRole(user.Id, "Employee");
                 if (result.Succeeded)
                 {
                     #region Custom User Details
@@ -175,6 +176,7 @@ namespace FinalProject.UI.Controllers
                 AddErrors(result);
             }
 
+            
             // If we got this far, something failed, redisplay form
             return View(model);
         }

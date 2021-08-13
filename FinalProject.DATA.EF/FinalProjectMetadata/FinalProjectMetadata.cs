@@ -27,7 +27,7 @@ namespace FinalProject.DATA.EF/*.FinalProjectMetadata*/
         [Required(ErrorMessage = "An application status is required")]
         public int ApplicationStatusID { get; set; }
 
-        [Required(ErrorMessage = "A resume is required")]
+        //[Required(ErrorMessage = "A resume is required")]
         [StringLength(75, ErrorMessage = "*Value must be 75 characters or less")]
         public string ResumeFileName { get; set; }
     }

@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FinalProject.DATA.EF;
+using Microsoft.AspNet.Identity;
 
 namespace FinalProject.UI.Controllers
 {
@@ -36,6 +37,23 @@ namespace FinalProject.UI.Controllers
                 return HttpNotFound();
             }
             return View(openPosition);
+        }
+
+        // One click apply
+        [Authorize(Roles = "Employee")]
+        public ActionResult OneClickApply(int id)
+        {
+            var Application = new Application();
+            Application.ApplicationDate = DateTime.Now;
+            Application.ManagerNotes = null;
+            Application.OpenPositionID = id;
+            Application.ApplicationStatusID = 2;
+            Application.UserID = User.Identity.GetUserId();
+            UserDetail userDetail = db.UserDetails.Where(x => x.UserID == Application.UserID).FirstOrDefault();
+            Application.ResumeFileName = userDetail.ResumeFileName;
+            db.Applications.Add(Application);
+            db.SaveChanges();
+            return RedirectToAction("Index", "Applications");
         }
 
         // GET: OpenPositions/Create
