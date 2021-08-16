@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FinalProject.DATA.EF;
+using Microsoft.AspNet.Identity;
 
 namespace FinalProject.UI.Controllers
 {
@@ -18,12 +19,26 @@ namespace FinalProject.UI.Controllers
         [Authorize(Roles = "Admin, Manager, Employee")]
         public ActionResult Index()
         {
-            var applications = db.Applications.Include(a => a.ApplicationStatus).Include(a => a.OpenPosition).Include(a => a.UserDetail);
-            return View(applications.ToList());
+            string userID = User.Identity.GetUserId();
+            if (User.IsInRole("Employee"))
+            {
+                var applications = db.Applications.Where(a => a.UserID == userID).Include(a => a.ApplicationStatus).Include(a => a.OpenPosition).Include(a => a.UserDetail);
+                return View(applications.ToList());
+            }
+            if (User.IsInRole("Manager"))
+            {
+                var applications = db.Applications.Where(a => a.OpenPosition.Location.ManagerID == userID).Include(a => a.ApplicationStatus).Include(a => a.OpenPosition).Include(a => a.UserDetail);
+                return View(applications.ToList());
+            }
+            else
+            {
+                var applications = db.Applications.Include(a => a.ApplicationStatus).Include(a => a.OpenPosition).Include(a => a.UserDetail);
+                return View(applications.ToList());
+            }
         }
 
         // GET: Applications/Details/5
-        [Authorize(Roles = "Admin, Manager")]
+        [Authorize(Roles = "Admin, Manager, Employee")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -39,7 +54,7 @@ namespace FinalProject.UI.Controllers
         }
 
         // GET: Applications/Create
-        [Authorize(Roles = "Admin, Manager")]
+        [Authorize(Roles = "Admin, Manager, Employee")]
         public ActionResult Create()
         {
             ViewBag.ApplicationStatusID = new SelectList(db.ApplicationStatus1, "ApplicationStatusID", "StatusName");
@@ -90,7 +105,7 @@ namespace FinalProject.UI.Controllers
         }
 
         // GET: Applications/Edit/5
-        [Authorize(Roles = "Admin, Manager")]
+        [Authorize(Roles = "Admin, Manager, Employee")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -143,7 +158,7 @@ namespace FinalProject.UI.Controllers
         }
 
         // GET: Applications/Delete/5
-        [Authorize(Roles = "Admin, Manager")]
+        [Authorize(Roles = "Admin, Manager, Employee")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

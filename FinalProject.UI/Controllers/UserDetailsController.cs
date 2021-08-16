@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FinalProject.DATA.EF;
+using Microsoft.AspNet.Identity;
 
 namespace FinalProject.UI.Controllers
 {
@@ -15,14 +16,23 @@ namespace FinalProject.UI.Controllers
         private FinalProjectEntities db = new FinalProjectEntities();
 
         // GET: UserDetails
-        [Authorize(Roles = "Admin, Manager")]
+        [Authorize(Roles = "Admin, Manager, Employee")]
         public ActionResult Index()
         {
-            return View(db.UserDetails.ToList());
+            string userID = User.Identity.GetUserId();
+            if (User.IsInRole("Employee"))
+            {
+                var userDetails = db.UserDetails.Where(x => x.UserID == userID);
+                return View(userDetails.ToList());
+            }
+            else
+            {
+                return View(db.UserDetails.ToList());
+            }
         }
 
         // GET: UserDetails/Details/5
-        [Authorize(Roles = "Admin, Manager")]
+        [Authorize(Roles = "Admin, Manager, Employee")]
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -49,10 +59,31 @@ namespace FinalProject.UI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UserID,FirstName,LastName,ResumeFileName")] UserDetail userDetail)
+        public ActionResult Create([Bind(Include = "UserID,FirstName,LastName,ResumeFileName")] UserDetail userDetail, HttpPostedFileBase resume)
         {
             if (ModelState.IsValid)
             {
+                #region File Upload
+                string resumeName = "noPDF.pdf";
+
+                if (resume != null)
+                {
+                    resumeName = resume.FileName;
+                    string ext = resumeName.Substring(resumeName.LastIndexOf('.'));
+                    string[] goodExts = { ".pdf" };
+
+                    if (goodExts.Contains(ext.ToLower()))
+                    {
+                        resume.SaveAs(Server.MapPath("~/Content/resumes/" + resumeName));
+                    }
+                    else
+                    {
+                        resumeName = "noPDF.pdf";
+                    }
+                }
+                userDetail.ResumeFileName = resumeName;
+                #endregion
+
                 db.UserDetails.Add(userDetail);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -62,7 +93,7 @@ namespace FinalProject.UI.Controllers
         }
 
         // GET: UserDetails/Edit/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Manager, Employee")]
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -82,10 +113,25 @@ namespace FinalProject.UI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UserID,FirstName,LastName,ResumeFileName")] UserDetail userDetail)
+        public ActionResult Edit([Bind(Include = "UserID,FirstName,LastName,ResumeFileName")] UserDetail userDetail, HttpPostedFileBase resume)
         {
             if (ModelState.IsValid)
             {
+                if (resume != null)
+                {
+                    string resumeName = resume.FileName;
+
+                    string ext = resumeName.Substring(resumeName.LastIndexOf('.'));
+
+                    string[] goodExts = { ".pdf" };
+
+                    if (goodExts.Contains(ext.ToLower()))
+                    {
+                        resume.SaveAs(Server.MapPath("~/Content/resumes/" + resumeName));
+
+                        userDetail.ResumeFileName = resumeName;
+                    }
+                }
                 db.Entry(userDetail).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

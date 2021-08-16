@@ -42,7 +42,8 @@
                     @Html.DisplayFor(modelItem => item.LastName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ResumeFileName)
+                    @*@Html.DisplayFor(modelItem => item.ResumeFileName)*@
+                    <a href="~/Content/resumes/@item.ResumeFileName" target="_blank">Click to View Document</a>
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.UserID }) |

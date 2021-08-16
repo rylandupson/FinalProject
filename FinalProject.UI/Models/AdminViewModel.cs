@@ -22,5 +22,6 @@ namespace FinalProject.UI.Models
         public string Email { get; set; }
 
         public IEnumerable<SelectListItem> RolesList { get; set; }
+        public IEnumerable<SelectListItem> StoreNumberList { get; set; }
     }
 }

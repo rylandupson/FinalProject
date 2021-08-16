@@ -23,6 +23,9 @@
                 @Html.DisplayNameFor(model => model.ApplicationDate)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.OpenPosition.Location.StoreNumber)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.ManagerNotes)
             </th>
             <th>
@@ -50,6 +53,9 @@
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.ApplicationDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OpenPosition.Location.StoreNumber)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ManagerNotes)

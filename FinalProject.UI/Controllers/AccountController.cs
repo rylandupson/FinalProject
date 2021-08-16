@@ -17,7 +17,7 @@ namespace FinalProject.UI.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -146,21 +146,41 @@ namespace FinalProject.UI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model, HttpPostedFileBase resume)
         {
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
-                UserManager.AddToRole(user.Id, "Employee");
                 if (result.Succeeded)
                 {
+                    UserManager.AddToRole(user.Id, "Employee");
                     #region Custom User Details
                     UserDetail newUD = new UserDetail();
                     newUD.UserID = user.Id;
                     newUD.FirstName = model.FirstName;
                     newUD.LastName = model.LastName;
-                    //newUD.ResumeFileName = model.ResumeFileName; //TODO: handle file upload
+                    newUD.ResumeFileName = model.ResumeFileName; //TODO: handle file upload
+                    #region File Upload
+                    string resumeName = "noPDF.pdf";
+
+                    if (resume != null)
+                    {
+                        resumeName = resume.FileName;
+                        string ext = resumeName.Substring(resumeName.LastIndexOf('.'));
+                        string[] goodExts = { ".pdf" };
+
+                        if (goodExts.Contains(ext.ToLower()))
+                        {
+                            resume.SaveAs(Server.MapPath("~/Content/resumes/" + resumeName));
+                        }
+                        else
+                        {
+                            resumeName = "noPDF.pdf";
+                        }
+                    }
+                    newUD.ResumeFileName = resumeName;
+                    #endregion
 
                     FinalProjectEntities db = new FinalProjectEntities();
                     db.UserDetails.Add(newUD);
@@ -176,7 +196,7 @@ namespace FinalProject.UI.Controllers
                 AddErrors(result);
             }
 
-            
+
             // If we got this far, something failed, redisplay form
             return View(model);
         }
