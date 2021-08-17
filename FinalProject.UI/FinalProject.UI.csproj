@@ -482,6 +482,7 @@
     <Content Include="Scripts\jquery.flexslider-min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\templatemo-script.js" />
+    <Content Include="Content\css\custom.css" />
     <Content Include="_Archive\default\bootstrap-theme.css" />
     <Content Include="_Archive\default\bootstrap-theme.min.css" />
     <Content Include="_Archive\default\bootstrap.css" />

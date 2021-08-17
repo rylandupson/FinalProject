@@ -30,7 +30,8 @@ namespace FinalProject.UI
                       "~/Content/css/bootstrap-datetimepicker.min.css",
                       "~/Content/css/flexslider.css",
                       "~/Content/css/templatemo-style.css",
-                      "~/Content/DataTables/css/jquery.dataTables.min.css"));
+                      "~/Content/DataTables/css/jquery.dataTables.min.css",
+                      "~/Content/css/custom.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/js").Include(
                 "~/Scripts/jquery-1.11.2.min.js",
