@@ -1,4 +1,48 @@
-﻿/*Side navigation*/
+﻿body {
+    background-image: url(images/matt-chris-pua-_aSOc5RT-8U-unsplash.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    background-color: RGBA(241, 241, 241, .1);
+}
+
+.body-content {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 200px;
+    padding-right: 200px;
+    background-color: #C4C4C4;
+}
+
+h2 {
+    border: solid black 2px;
+    background-color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+.tm-site-name {
+    color: #006BE6;
+}
+
+    .tm-site-name:hover,
+    .tm-site-name:focus {
+        color: #00E8E8;
+    }
+
+.tm-nav li a:hover {
+    background: #006BE6;
+    color: #000;
+}
+
+#myTable {
+    border: solid black 2px;
+}
+
+.tm-section-title {
+    font-weight: bold;
+}
+
+/*Side navigation*/
 .sidenav {
     height: 100%;
     width: 0;

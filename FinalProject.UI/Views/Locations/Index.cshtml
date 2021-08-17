@@ -4,10 +4,10 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Locations</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
 </p>
 <table class="table" id="myTable">
     <thead>
@@ -45,9 +45,9 @@
                     @Html.DisplayFor(modelItem => item.UserDetail.FirstName)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.LocationID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.LocationID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.LocationID })
+                    @Html.ActionLink("Edit", "Edit", null, new { id = item.LocationID, @class = "btn btn-success" }) |
+                    @Html.ActionLink("Details", "Details", null, new { id = item.LocationID, @class = "btn btn-info" }) |
+                    @Html.ActionLink("Delete", "Delete", null, new { id = item.LocationID, @class = "btn btn-warning" })
                 </td>
             </tr>
         }

@@ -4,10 +4,10 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>User Details</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
 </p>
 <table class="table" id="myTable">
     <thead>
@@ -46,9 +46,9 @@
                     <a href="~/Content/resumes/@item.ResumeFileName" target="_blank">Click to View Document</a>
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.UserID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.UserID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.UserID })
+                    @Html.ActionLink("Edit", "Edit", null, new { id = item.UserID, @class = "btn btn-success" }) |
+                    @Html.ActionLink("Details", "Details", null, new { id = item.UserID, @class = "btn btn-info" }) |
+                    @Html.ActionLink("Delete", "Delete", null, new { id = item.UserID, @class = "btn btn-warning" })
                 </td>
             </tr>
         }

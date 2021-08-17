@@ -4,16 +4,16 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Applications</h2>
 
 <p>
     @if (User.IsInRole("Admin"))
     {
-        @Html.ActionLink("Create New", "Create")
+        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
     }
     @if (User.IsInRole("Manager"))
     {
-        @Html.ActionLink("Create New", "Create")
+        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
     }
 </p>
 <table class="table" id="myTable">
@@ -79,15 +79,15 @@
                 <td>
                     @if (User.IsInRole("Admin"))
                     {
-                        @Html.ActionLink("Edit", "Edit", new { id = item.ApplicationID })
-                        @Html.ActionLink("Details", "Details", new { id = item.ApplicationID })
-                        @Html.ActionLink("Delete", "Delete", new { id = item.ApplicationID })
+                        @Html.ActionLink("Edit", "Edit", null, new { id = item.ApplicationID, @class = "btn btn-success" })
+                        @Html.ActionLink("Details", "Details", null, new { id = item.ApplicationID, @class = "btn btn-info" })
+                        @Html.ActionLink("Delete", "Delete", null, new { id = item.ApplicationID, @class = "btn btn-warning" })
                     }
                     @if (User.IsInRole("Manager"))
                     {
-                        @Html.ActionLink("Edit", "Edit", new { id = item.ApplicationID })
-                        @Html.ActionLink("Details", "Details", new { id = item.ApplicationID })
-                        @Html.ActionLink("Delete", "Delete", new { id = item.ApplicationID })
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ApplicationID, @class = "btn btn-success" })
+                        @Html.ActionLink("Details", "Details", new { id = item.ApplicationID, @class = "btn btn-info" })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ApplicationID, @class = "btn btn-warning" })
                     }
                 </td>
             </tr>

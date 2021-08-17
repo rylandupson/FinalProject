@@ -4,10 +4,10 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Open Positions</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
 </p>
 <table class="table" id="myTable">
     <thead>
@@ -36,9 +36,9 @@
                     @Html.ActionLink("Apply Now", "OneClickApply", new { id = item.OpenPositionID })
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.OpenPositionID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.OpenPositionID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.OpenPositionID })
+                    @Html.ActionLink("Edit", "Edit", null, new { id = item.OpenPositionID, @class = "btn btn-success" }) |
+                    @Html.ActionLink("Details", "Details", null, new { id = item.OpenPositionID, @class = "btn btn-info" }) |
+                    @Html.ActionLink("Delete", "Delete", null, new { id = item.OpenPositionID, @class = "btn btn-warning" })
                 </td>
                 <td>
                 </td>

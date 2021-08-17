@@ -191,10 +191,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\bootstrap-datetimepicker.min.css" />
+    <Content Include="Content\css\cyborg.css" />
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\flexslider.css" />
     <Content Include="Content\css\font-awesome.min.css" />
     <Content Include="Content\css\fonts\flexslider-icon.svg" />
+    <Content Include="Content\css\images\matt-chris-pua-_aSOc5RT-8U-unsplash.jpg" />
     <Content Include="Content\css\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
     <Content Include="Content\css\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
     <Content Include="Content\css\images\ui-bg_flat_10_000000_40x100.png" />

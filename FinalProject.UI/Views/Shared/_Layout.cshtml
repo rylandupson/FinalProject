@@ -26,15 +26,15 @@
     <![endif]-->
 
 </head>
-<body class="tm-gray-bg">
+<body @*class="tm-gray-bg"*@>
     <!-- Header -->
     <div class="tm-header">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6 col-md-4 col-sm-3 tm-site-name-container">
+                <div class="col-lg-4 tm-site-name-container">
                     <a href="@Url.Action("Index", "Home")" class="tm-site-name">Rye Games</a>
                 </div>
-                <div class="col-lg-12">
+                <div class="col-lg-8 ">
                     <div class="mobile-menu-icon">
                         <i class="fa fa-bars"></i>
                     </div>
@@ -150,7 +150,7 @@
         </ul>
     </div>
 
-    <div class="container">
+    <div class="body-content">
         @RenderBody()
     </div>
 
