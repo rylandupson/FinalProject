@@ -29,9 +29,9 @@
             @Html.DisplayFor(modelItem => item.StatusDescription)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", null, new { id=item.ApplicationStatusID, @class = "btn btn-success" }) |
-            @Html.ActionLink("Details", "Details", null, new { id=item.ApplicationStatusID, @class = "btn btn-info" }) |
-            @Html.ActionLink("Delete", "Delete", null, new { id=item.ApplicationStatusID, @class = "btn btn-warning" })
+            @Html.ActionLink("Edit", "Edit", "ApplicationStatus", new { id=item.ApplicationStatusID }, new { @class = "btn btn-success" }) |
+            @Html.ActionLink("Details", "Details", "ApplicationStatus", new { id=item.ApplicationStatusID }, new { @class = "btn btn-info" }) |
+            @Html.ActionLink("Delete", "Delete", "ApplicationStatus", new { id=item.ApplicationStatusID }, new { @class = "btn btn-warning" })
         </td>
     </tr>
 }

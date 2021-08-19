@@ -79,15 +79,15 @@
                 <td>
                     @if (User.IsInRole("Admin"))
                     {
-                        @Html.ActionLink("Edit", "Edit", null, new { id = item.ApplicationID, @class = "btn btn-success" })
-                        @Html.ActionLink("Details", "Details", null, new { id = item.ApplicationID, @class = "btn btn-info" })
-                        @Html.ActionLink("Delete", "Delete", null, new { id = item.ApplicationID, @class = "btn btn-warning" })
+                        @Html.ActionLink("Edit", "Edit", "Applications", new { id = item.ApplicationID }, new { @class = "btn btn-success" })
+                        @Html.ActionLink("Details", "Details", "Applications", new { id = item.ApplicationID }, new { @class = "btn btn-info" })
+                        @Html.ActionLink("Delete", "Delete", "Applications", new { id = item.ApplicationID }, new { @class = "btn btn-warning" })
                     }
                     @if (User.IsInRole("Manager"))
                     {
-                        @Html.ActionLink("Edit", "Edit", new { id = item.ApplicationID, @class = "btn btn-success" })
-                        @Html.ActionLink("Details", "Details", new { id = item.ApplicationID, @class = "btn btn-info" })
-                        @Html.ActionLink("Delete", "Delete", new { id = item.ApplicationID, @class = "btn btn-warning" })
+                        @Html.ActionLink("Edit", "Edit", "Applications", new { id = item.ApplicationID }, new { @class = "btn btn-success" })
+                        @Html.ActionLink("Details", "Details", "Applications", new { id = item.ApplicationID }, new { @class = "btn btn-info" })
+                        @Html.ActionLink("Delete", "Delete", "Applications", new { id = item.ApplicationID }, new { @class = "btn btn-warning" })
                     }
                 </td>
             </tr>
